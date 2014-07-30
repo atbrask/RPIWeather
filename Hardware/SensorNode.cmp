@@ -1,0 +1,150 @@
+Cmp-Mod V01 Created by Cvpcb (2014-03-22 BZR 4766)-product   date = Sat 22 Mar 2014 03:45:05 PM CET
+
+BeginCmp
+TimeStamp = /53220DEA;
+Reference = BT1;
+ValeurCmp = BATTERY;
+IdModule  = SensorNode:302112-battery;
+EndCmp
+
+BeginCmp
+TimeStamp = /53220BDB;
+Reference = C1;
+ValeurCmp = 10uF;
+IdModule  = SMD_Packages:SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /53220BEF;
+Reference = C2;
+ValeurCmp = 10uF;
+IdModule  = SMD_Packages:SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /53220950;
+Reference = C3;
+ValeurCmp = 100nF;
+IdModule  = SMD_Packages:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /532219EE;
+Reference = C4;
+ValeurCmp = 100nF;
+IdModule  = SMD_Packages:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /53220964;
+Reference = C5;
+ValeurCmp = 22pF;
+IdModule  = SMD_Packages:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /53220978;
+Reference = C6;
+ValeurCmp = 22pF;
+IdModule  = SMD_Packages:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /53220C03;
+Reference = C7;
+ValeurCmp = 100nF;
+IdModule  = SMD_Packages:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5325AE62;
+Reference = C8;
+ValeurCmp = 100nF;
+IdModule  = SMD_Packages:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /532D9D50;
+Reference = C9;
+ValeurCmp = 100nF;
+IdModule  = SMD_Packages:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /53220920;
+Reference = IC1;
+ValeurCmp = ATTINY84A-SS;
+IdModule  = SMD_Packages:SO14E;
+EndCmp
+
+BeginCmp
+TimeStamp = /53220BC7;
+Reference = L1;
+ValeurCmp = 10uH;
+IdModule  = SensorNode:Coilcraft_LPS4012;
+EndCmp
+
+BeginCmp
+TimeStamp = /53220B34;
+Reference = P1;
+ValeurCmp = DHT22;
+IdModule  = Pin_Headers:Pin_Header_Angled_1x04;
+EndCmp
+
+BeginCmp
+TimeStamp = /53220AAA;
+Reference = P2;
+ValeurCmp = ICSP;
+IdModule  = SensorNode:ICSP_header;
+EndCmp
+
+BeginCmp
+TimeStamp = /53220AED;
+Reference = P3;
+ValeurCmp = nRF24L01;
+IdModule  = SensorNode:nRF24L01;
+EndCmp
+
+BeginCmp
+TimeStamp = /53221A02;
+Reference = R1;
+ValeurCmp = 10k;
+IdModule  = SMD_Packages:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5322098C;
+Reference = R2;
+ValeurCmp = 1M;
+IdModule  = SMD_Packages:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5325AE4E;
+Reference = R3;
+ValeurCmp = 10k;
+IdModule  = SMD_Packages:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /532D9D3A;
+Reference = R4;
+ValeurCmp = 1M;
+IdModule  = SMD_Packages:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /53221C96;
+Reference = U1;
+ValeurCmp = TPS61097;
+IdModule  = SensorNode:TPS61097-33;
+EndCmp
+
+BeginCmp
+TimeStamp = /532209BA;
+Reference = X1;
+ValeurCmp = 8MHz (18pF);
+IdModule  = Crystals_Oscillators_SMD:Q_49U3HMS;
+EndCmp
+
+EndListe
