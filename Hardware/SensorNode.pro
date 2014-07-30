@@ -1,4 +1,4 @@
-update=Thu 13 Mar 2014 09:34:59 PM CET
+update=Wed 30 Jul 2014 10:46:38 PM CEST
 version=1
 last_client=eeschema
 [cvpcb]
@@ -47,9 +47,6 @@ LibName16=valves
 version=1
 [eeschema]
 version=1
-PageLayoutDescrFile=
-SubpartIdSeparator=0
-SubpartFirstId=65
 LibDir=
 NetFmtName=
 RptD_X=0
