@@ -1,7 +1,10 @@
 ## Weather station based on nRF24L01, DHT22, ATtiny84, and a Raspberry Pi
 
 ### Introduction
-This is a complete system for collecting, storing, and displaying environmental sensor data. The system consists of a number of embedded sensor nodes that communicate wirelessly with a base station using the very popular nRF24L01 radio modules.
+This is a complete system for collecting, storing, and displaying environmental
+sensor data. The system consists of a number of embedded sensor nodes that
+communicate wirelessly with a base station using the very popular nRF24L01
+radio modules.
 
 In its current form, the project is work-in-progress. Status on the different parts as of 2014-07-30:
 
@@ -9,6 +12,10 @@ In its current form, the project is work-in-progress. Status on the different pa
 * Hardware: 100%
 * Backend: 5%
 * Frontend: 0%
+
+I have successfully tested concurrent operation of 10 sensor nodes with a DHT22
+sensor each. I have prepared a couple more for collecting wind and rain data
+as well.
 
 ### Features
 * Firmware optimized for ATtiny84 @ 1 MHz (8MHz crystal with the CKDV8 fuse set)
