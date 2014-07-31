@@ -6,7 +6,8 @@ sensor data. The system consists of a number of embedded sensor nodes that
 communicate wirelessly with a base station using the very popular nRF24L01
 radio modules.
 
-In its current form, the project is work-in-progress. Status on the different parts as of 2014-07-30:
+In its current form, the project is work-in-progress. Status on the different
+parts as of 2014-07-30:
 
 * Firmware: 100%
 * Hardware: 100%
@@ -29,5 +30,8 @@ as well.
 * Battery voltage measurement included in data packet
 * Typical battery draw while sleeping has been measured to around 17uA
 * Total firmware size from 3.0 kiB to 3.5 kiB (depending on sensor type)
+
+Eventually I'll get around to writing a bit about this on my blog at:
+http://www.atbrask.dk/
 
 /atbrask
