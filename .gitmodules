@@ -1,0 +1,3 @@
+[submodule "Firmware/src/RF24"]
+	path = Firmware/src/RF24
+	url = ../RF24
