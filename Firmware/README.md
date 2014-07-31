@@ -11,6 +11,26 @@ Version history:
 Please note that the code uses a few C++11 features. It might not work with
 older versions of avr-gcc.
 
+Set correct fuses:
+'''
+make fuses
+'''
+
+Read back fuses:
+'''
+make rdfuses
+'''
+
+Rebuild code for unit 01:02 with VCC = 3.32v and a DHT22 sensor on board:
+'''
+make rebuild UNITID=0x0102 VCC=3320 SENSORTYPE=DHT22
+'''
+
+The default build rule rebuilds the firmware and attempts to flash the device:
+'''
+make UNITID=0x0102 VCC=3320 SENSORTYPE=DHT22
+'''
+
 You can get the most recent version of this code and all the schematics at:
 https://www.github.com/atbrask/RPIWeather/
 
