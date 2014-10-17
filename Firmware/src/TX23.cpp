@@ -105,7 +105,7 @@ bool TX23::readPowered(SensorReading buffer[])
         buffer[0].Quality = QualityGoodNonSpecific;
         buffer[0].Value = windSpeed;
         buffer[1].Quality = QualityGoodNonSpecific;
-        buffer[1].Value = windDirection;
+        buffer[1].Value = windDirection * 225;
         return true;
     }
     else

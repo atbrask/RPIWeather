@@ -28,7 +28,7 @@ extern "C" void PCINT0_vect(void) __attribute__ ((signal));
  * pulled low by a reed relay. When PA2 isn't pulled low by the rain gauge,
  * it's pulled high by PA1 through a 10k pull-up resistor. It turns out that
  * we get the most reliable results by counting the low->high pin change event
- * that occurs after the tip. Each tip represents 0.508mm of rain.
+ * that occurs after the tip. Each tip represents approx 1/2 mm of rain.
  */
 class WS_2300_16: public Sensor
 {
