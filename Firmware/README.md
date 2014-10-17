@@ -7,6 +7,7 @@ Version history:
 * v1.1 (2014-06-08) Added support for the La Crosse TX23 anemometer
 * v1.2 (2014-07-25) Added support for the WS-2300-16 rain gauge
 * v1.3 (2014-07-30) Fixed a lot of small issues
+* v1.4 (2014-10-17) Fixed a few engineering units
 
 Please note that the code uses a few C++11 features. It might not work with
 older versions of avr-gcc.
