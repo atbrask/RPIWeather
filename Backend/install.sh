@@ -19,6 +19,8 @@ rm -rf python-spidev-tcz
 rm -rf python-nrf24-tcz
 
 # Install depencies
+tce-load -wi python
+tce-load -wi python-RPi.GPIO
 tce-load -i python-influxdb
 tce-load -i python-nrf24
 
