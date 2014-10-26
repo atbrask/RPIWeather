@@ -3,7 +3,7 @@ Copyright (c) 2014 A.T.Brask <atbrask@gmail.com> (Except included libraries)
 All rights reserved
 
 Version history:
-* v1.0 (2014-10-17) Initial release
+* v1.0 (2014-10-26) Initial release
 
 This is the backend part of the project. It consists of a gateway server and
 an InfluxDB server. The role of the gateway is to fetch data packets from the
@@ -29,15 +29,15 @@ called piCore.
 #### Installation
 * Install piCore 5.3.1-SSH onto an SD card using `dd` or similar tool.
 * Plug in the SD card and boot the Pi.
-* Log in to the system using SSH (username 'tc' and password 'piCore').
+* Log in to the system using SSH (username `tc` and password `piCore`).
 * Change the password to something else using `passwd`.
 * Open `/opt/.filetool.lst` and remove the lines `usr/local/etc/ssh/ssh_config` and `usr/local/etc/ssh/sshd_config`. Instead insert the line `usr/local/etc/ssh` and save.
 * Run `sudo filetool.sh -b` to save the changes.
 * Expand the file system (and reboot). See [here](http://www.maketecheasier.com/review-of-picore/) for a how-to.
 * When the system is ready, log in again.
 * Run `tce-load -wi git` to install git.
-* Run 'git clone https://www.github.com/atbrask/RPIWeather.git'
-* Type 'cd RPIWeather/Backend' and run './install.sh'.
+* Run `git clone https://www.github.com/atbrask/RPIWeather.git`
+* Type `cd RPIWeather/Backend` and run `./install.sh`.
 * Done!
 
 #### Configuration
@@ -62,8 +62,8 @@ see if everything works as expected. But running the gateway from the command
 line is impractical for the long run. We need to add it to piCore's list of 
 services to be started at boot.
 
-* Open '/opt/bootlocal.sh' and add the line 'sudo /opt/rpiweather.py &'
-* Run 'sudo filetool.sh -b' to save the changes.
+* Open `/opt/bootlocal.sh` and add the line `sudo /opt/rpiweather.py &`
+* Run `sudo filetool.sh -b` to save the changes.
 * Reboot to test that it auto-starts
 
 Now the server should be running and ready for use!
