@@ -7,11 +7,11 @@ communicate wirelessly with a base station using the very popular nRF24L01
 radio modules.
 
 In its current form, the project is work-in-progress. Status on the different
-parts as of 2014-07-30:
+parts as of 2014-10-26:
 
 * Firmware: 100%
 * Hardware: 100%
-* Backend: 5%
+* Backend: 100% (minus some testing...)
 * Frontend: 0%
 
 I have successfully tested concurrent operation of 10 sensor nodes with a DHT22
