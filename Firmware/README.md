@@ -1,4 +1,4 @@
-### Firmware to "atbrask's Sensor Nodes v1.0"
+### Firmware for "atbrask's Sensor Nodes v1.0"
 Copyright (c) 2014 A.T.Brask <atbrask@gmail.com> (Except the RF24 library)
 All rights reserved
 
