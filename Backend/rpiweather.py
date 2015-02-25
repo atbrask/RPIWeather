@@ -98,7 +98,7 @@ class BMPSampler:
     def start(self):
         while True:
             try:
-                pressure = self.sensor.read_sealevel_pressure(altitude_m=self.altitude) / 100.0
+                pressure = self.sensor.read_sealevel_pressure(altitude_m=self.altitude)
                 data = self.processPacket(pressure)
                 self.dataqueue.put(data)
                 self.sequenceNumber += 1
@@ -115,7 +115,7 @@ class BMPSampler:
                            self.unitid, 
                            self.sequenceNumber,
                            -1,
-                           [[6, pressure, 0xc0], [0,0,0], [0,0,0], [0,0,0]],
+                           6, 0xc0, pressure / 10.0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                            -1])
 
 class InfluxDBSender:
@@ -145,7 +145,7 @@ class InfluxDBSender:
         columns = ["time", "messageNumber"]
         points = [packet.creationTime, packet.sequenceNumber]
 
-        if packet.batteryVoltage > -1:
+        if packet.batteryVoltage > 0:
             columns.append("batteryVoltage")
             points.append(packet.batteryVoltage)
 
@@ -238,7 +238,7 @@ if __name__ == "__main__":
     # Start barometric sensor!
     try:
         logger.info("Connecting to Bosch BMP085/180 sensor...")
-        sensor = BMP085.BMP085(mode = BMP085.BMP085_ULTRAHIGHRES)
+        sensor = BMP.BMP085(mode = BMP.BMP085_ULTRAHIGHRES)
         logger.info("BMP085/180 found! Starting thread...")
         bmpsampler = BMPSampler(sensor,
                                 bmpUnitID,
