@@ -22,6 +22,7 @@ from Queue import Queue
 from threading import Thread
 from influxdb import client as influxdb
 from nrf24 import NRF24
+import Adafruit_BMP.BMP085 as BMP
 
 class Measurement:
     def __init__(self, data):
@@ -84,6 +85,39 @@ class RF24Receiver:
 
         return packet
 
+class BMPSampler:
+    def __init__(self, sensor, unitid, dataqueue, interval, altitude, logger):
+        self.sensor = sensor
+        self.unitid = unitid
+        self.dataqueue = dataqueue
+        self.interval = interval
+        self.altitude = altitude
+        self.logger = logger
+        self.sequenceNumber = 0
+
+    def start(self):
+        while True:
+            try:
+                pressure = self.sensor.read_sealevel_pressure(altitude_m=self.altitude) / 100.0
+                data = self.processPacket(pressure)
+                self.dataqueue.put(data)
+                self.sequenceNumber += 1
+                time.sleep(self.interval)
+            except:
+                self.logger.error("BMP085/180 error: '{0}'".format(sys.exc_info()[1].message))
+                time.sleep(10)
+
+
+    def processPacket(self, pressure):
+        # Imitate a sensor node
+        return DataPacket([-1,
+                           -1, 
+                           self.unitid, 
+                           self.sequenceNumber,
+                           -1,
+                           [[6, pressure, 0xc0], [0,0,0], [0,0,0], [0,0,0]],
+                           -1])
+
 class InfluxDBSender:
     def __init__(self, db, dataqueue, sensortypes, includeQuality, logger):
         self.db = db
@@ -108,12 +142,12 @@ class InfluxDBSender:
 
     def processPacket(self, packet):
         name = "Sensor-{0:04X}".format(packet.unitID)
-        columns = ["time", 
-                   "messageNumber", 
-                   "batteryVoltage"]
-        points = [packet.creationTime, 
-                  packet.sequenceNumber, 
-                  packet.batteryVoltage]
+        columns = ["time", "messageNumber"]
+        points = [packet.creationTime, packet.sequenceNumber]
+
+        if packet.batteryVoltage > -1:
+            columns.append("batteryVoltage")
+            points.append(packet.batteryVoltage)
 
         for measurement in packet.measurements:
             if measurement.sensortype > 0:
@@ -152,7 +186,13 @@ if __name__ == "__main__":
                    2: "humidity",
                    3: "windSpeed",
                    4: "windDirection",
-                   5: "rainfall"}
+                   5: "rainfall",
+                   6: "pressure"}
+
+    # BMP085/180 configuration
+    bmpUnitID = 0x0001       # Register as "Sensor-0001"
+    bmpSampleInterval = 300  # 5 minutes
+    heightAboveSeaLevel = 24 # 24 meters above sea level
 
     # Logging configuration
     logFileName = "/var/log/rpiweather.log"
@@ -195,6 +235,24 @@ if __name__ == "__main__":
     receiverThread.start()
     logger.info("Listening thread started!")
 
+    # Start barometric sensor!
+    try:
+        logger.info("Connecting to Bosch BMP085/180 sensor...")
+        sensor = BMP085.BMP085(mode = BMP085.BMP085_ULTRAHIGHRES)
+        logger.info("BMP085/180 found! Starting thread...")
+        bmpsampler = BMPSampler(sensor,
+                                bmpUnitID,
+                                dataqueue,
+                                bmpSampleInterval,
+                                heightAboveSeaLevel,
+                                logger)
+        sensorThread = Thread(target = bmpsampler.start)
+        sensorThread.daemon = True
+        sensorThread.start()
+        logger.info("BMP085/180 thread started!")
+    except:
+        logger.error("Could not start BMP085/180 sensor thread! Skipping...")
+
     # Start sender!
     logger.info("Starting InfluxDB client...")
     db = influxdb.InfluxDBClient(host, port, username, password, database)
@@ -202,7 +260,7 @@ if __name__ == "__main__":
     logger.info("Starting sending thread...")
     sender = InfluxDBSender(db, dataqueue, sensortypes, includeQuality, logger)
     senderThread = Thread(target = sender.start)
-    senderThread.daemon = True;
+    senderThread.daemon = True
     senderThread.start()
     logger.info("Sending thread started!")
 

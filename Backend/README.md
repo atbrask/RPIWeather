@@ -3,6 +3,7 @@ Copyright (c) 2014 A.T.Brask <atbrask@gmail.com> (Except included libraries)
 All rights reserved
 
 Version history:
+* v1.1 (2015-02-25) Added support for the Bosch BMP085/180 barometric sensor
 * v1.0 (2014-10-26) Initial release
 
 This is the backend part of the project. It consists of a gateway server and
@@ -10,6 +11,11 @@ an InfluxDB server. The role of the gateway is to fetch data packets from the
 sensor nodes and forward them to the database. In case of a database server
 crash or reboot (or other availability issues) the gateway will buffer data
 until it runs out of memory.
+
+It also supports a Bosch BMP085/180 baremetric sensor connected directly to
+the Pi's I2C pins. These measurements are sent to the InfluxDB server just as
+the ones from the sensor nodes. Just comment out the relevant lines if you
+don't have this sensor installed.
 
 Installing and configuring InfluxDB is pretty easy, so I'll skip it in this
 write-up. Let's then focus on the gateway itself. It's merely a python script
@@ -20,6 +26,7 @@ called piCore.
 * Raspberry Pi Model B
 * SD card
 * nRF24L01(+) radio module connected to the SPI bus (see below)
+* BMP085/180 barometric sensor connected to the I2C bus (see below)
 * A bunch of "atbrask's Sensor Nodes"
 * A running [InfluxDB](http://influxdb.com) server
 * A [disk image of piCore 5.3.1-SSH](http://tinycorelinux.net/5.x/armv6/releases/5.3/piCore-5.3.1-SSH.zip) (+ basic knowledge about how to use it)
@@ -43,17 +50,35 @@ RPi pin | meaning | nRF pin
 24      | CSN     | 4
 ??      | IRQ     | 8
 
+#### Connecting a Bosch BMP085/180 barometric sensor module to the Pi
+Like the SPI bus above, the Pi has a I2C bus exposed in the same big header.
+There are a lot of different BMP085/180 breakout boards out there, so you need
+to find out if your board needs 3.3v or 5v, and whether or not you need to add
+pull-up resistors to the data pins. I used the fairly well-known GY-68 board.
+These can be picked up for $1-2 on Ebay. It has a 3.3v regulator and the
+necessary pull-up resistors, so it can be attached directly.
+
+RPi pin | GY-68 pin
+--------|----------
+3       | SDA
+5       | SCL
+6       | GND
+2       | VCC
+
+If you have a breakout board without the 3.3v regulator, you'll need to use
+pin 1 instead of pin 2 for VCC.
+
 #### Installation
 * Install piCore 5.3.1-SSH onto an SD card using `dd` or similar tool.
 * Plug in the SD card and boot the Pi.
 * Log in to the system using SSH (username `tc` and password `piCore`).
 * Change the password to something else using `passwd`.
-* Run `tce-load -wi nano` to install nano.
+* Run `tce-load -w -i nano` to install nano.
 * Open `/opt/.filetool.lst` (using nano) and remove the lines `usr/local/etc/ssh/ssh_config` and `usr/local/etc/ssh/sshd_config`. Instead insert the line `usr/local/etc/ssh` and save.
 * Run `sudo filetool.sh -b` to save the changes.
 * Expand the file system (and reboot). See [here](http://www.maketecheasier.com/review-of-picore/) for a how-to.
 * When the system is ready, log in again.
-* Run `tce-load -wi git` to install git.
+* Run `tce-load -w -i git` to install git.
 * Run `git clone https://www.github.com/atbrask/RPIWeather.git`
 * Type `cd RPIWeather/Backend` and run `./install.sh`.
 * Open `/etc/sysconfig/tcedir/onboot.lst` and add the lines `python-spidev.tcz`, `python-nrf24.tcz`, `python-requests.tcz`, and `python-influxdb.tcz` at the bottom of the file.
@@ -75,7 +100,7 @@ To run the script from the command line write:
 
 
 We need to use `sudo` in order to access the GPIO pins that are connected to
-the nRF radio chip.
+the nRF radio chip and the BMP085/180 sensor.
 
 This is useful for testing the configuration. Remember to check the log file to
 see if everything works as expected. But running the gateway from the command
