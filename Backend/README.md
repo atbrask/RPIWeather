@@ -69,7 +69,7 @@ If you have a breakout board without the 3.3v regulator, you'll need to use
 pin 1 instead of pin 2 for VCC.
 
 #### Installation
-* Install piCore 5.3.1-SSH onto an SD card using `dd` or similar tool.
+* Install piCore 6.1-SSH onto an SD card using `dd` or similar tool.
 * Plug in the SD card and boot the Pi.
 * Log in to the system using SSH (username `tc` and password `piCore`).
 * Change the password to something else using `passwd`.
@@ -82,6 +82,7 @@ pin 1 instead of pin 2 for VCC.
 * Run `git clone https://www.github.com/atbrask/RPIWeather.git`
 * Type `cd RPIWeather/Backend` and run `./install.sh`.
 * Open `/etc/sysconfig/tcedir/onboot.lst` and add the lines `python-spidev.tcz`, `python-nrf24.tcz`, `python-requests.tcz`, and `python-influxdb.tcz` at the bottom of the file.
+* Open `/opt/bootlocal.sh` and add the line `ntpd`
 * Run `sudo filetool.sh -b`to save the changes.
 * Done!
 
