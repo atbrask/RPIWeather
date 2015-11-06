@@ -29,7 +29,7 @@ called piCore.
 * BMP085/180 barometric sensor connected to the I2C bus (see below)
 * A bunch of "atbrask's Sensor Nodes"
 * A running [InfluxDB](http://influxdb.com) server
-* A [disk image of piCore 5.3.1-SSH](http://tinycorelinux.net/5.x/armv6/releases/5.3/piCore-5.3.1-SSH.zip) (+ basic knowledge about how to use it)
+* A [disk image of piCore 6.1-SSH](http://tinycorelinux.net/6.x/armv6/releases/images/piCore-6.1-SSH.zip) (+ basic knowledge about how to use it)
 * Knowledge of the python programming language
 * An internet connection :-)
 
