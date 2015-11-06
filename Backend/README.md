@@ -73,18 +73,17 @@ pin 1 instead of pin 2 for VCC.
 * Plug in the SD card and boot the Pi.
 * Log in to the system using SSH (username `tc` and password `piCore`).
 * Change the password to something else using `passwd`.
-* Run `tce-load -w -i nano` to install nano.
-* Open `/opt/.filetool.lst` (using nano) and remove the lines `usr/local/etc/ssh/ssh_config` and `usr/local/etc/ssh/sshd_config`. Instead insert the line `usr/local/etc/ssh` and save.
-* Run `sudo filetool.sh -b` to save the changes.
+* Run `sudo filetool.sh -b` to save the newly generated SSH keys.
 * Expand the file system (and reboot). See [here](http://www.maketecheasier.com/review-of-picore/) for a how-to.
 * When the system is ready, log in again.
 * Run `tce-load -w -i git` to install git.
 * Run `git clone https://www.github.com/atbrask/RPIWeather.git`
 * Type `cd RPIWeather/Backend` and run `./install.sh`.
+* Run `tce-load -w -i nano` to install nano.
 * Open `/etc/sysconfig/tcedir/onboot.lst` and add the lines `python-spidev.tcz`, `python-nrf24.tcz`, `python-requests.tcz`, and `python-influxdb.tcz` at the bottom of the file.
 * Open `/opt/bootlocal.sh` and add the line `ntpd`
 * Run `sudo filetool.sh -b`to save the changes.
-* Done!
+* Done! You can reboot if you wish to make sure that everything loads as it should.
 
 #### Configuration
 Now everything is installed and put into the right places. But before running 
