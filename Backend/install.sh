@@ -15,14 +15,13 @@ cp python-nrf24-tcz/python-nrf24.tcz* /etc/sysconfig/tcedir/optional/
 # Install dependencies for the sensor nodes
 tce-load -w -i python
 tce-load -w -i python-RPi.GPIO
-tce-load -w -i py-smbus
 tce-load -w -i ntp
 tce-load -i python-influxdb
 tce-load -i python-nrf24
 
 # Install dependencies for the BMP085/180 sensor
 tce-load -w -i i2c-tools
-tce-load -w -i python-smbus
+tce-load -w -i py-smbus
 
 # Get dependencies for the BMP085/180 sensor
 git clone https://www.github.com/adafruit/Adafruit_Python_BMP.git
