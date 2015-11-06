@@ -15,6 +15,8 @@ cp python-nrf24-tcz/python-nrf24.tcz* /etc/sysconfig/tcedir/optional/
 # Install dependencies for the sensor nodes
 tce-load -w -i python
 tce-load -w -i python-RPi.GPIO
+tce-load -w -i py-smbus
+tce-load -w -i ntp
 tce-load -i python-influxdb
 tce-load -i python-nrf24
 
