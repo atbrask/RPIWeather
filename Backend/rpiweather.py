@@ -164,8 +164,8 @@ if __name__ == "__main__":
     # Radio configuration
     spiMajor  = 0
     spiMinor  = 0
-    cePin     = 22
-    irqPin    = 18
+    cePin     = 25 #GPIO25 = pin 22
+    irqPin    = 24 #GPIO24 = pin 18
     readPipe  = [0x20, 0x13, 0x09, 0x28, 0x01]
     writePipe = [0x20, 0x13, 0x09, 0x28, 0x02]
     channel   = 0x5c
