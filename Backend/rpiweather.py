@@ -58,7 +58,7 @@ class RF24Receiver:
         recv_buffer = []
         while True:
             try:
-                if radio.available():
+                if radio.available([]):
                     recv_buffer = []
                     radio.read(recv_buffer)
                     data = self.processPacket(recv_buffer)
@@ -166,8 +166,8 @@ if __name__ == "__main__":
     spiMinor  = 0
     cePin     = 25 #GPIO25 = pin 22
     irqPin    = 24 #GPIO24 = pin 18
-    readPipe  = [0x20, 0x13, 0x09, 0x28, 0x01]
-    writePipe = [0x20, 0x13, 0x09, 0x28, 0x02]
+    readPipe  = [0x01, 0x28, 0x09, 0x13, 0x20]
+    writePipe = [0x02, 0x28, 0x09, 0x13, 0x20]
     channel   = 0x5c
 
     # Database configuration
