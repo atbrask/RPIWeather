@@ -3,6 +3,7 @@ Copyright (c) 2014 A.T.Brask <atbrask@gmail.com> (Except included libraries)
 All rights reserved
 
 Version history:
+* v1.2 (2015-11-11) Fixed compatibility issues
 * v1.1 (2015-02-25) Added support for the Bosch BMP085/180 barometric sensor
 * v1.0 (2014-10-26) Initial release
 
