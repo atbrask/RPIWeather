@@ -82,7 +82,7 @@ pin 1 instead of pin 2 for VCC.
 * Type `cd RPIWeather/Backend` and run `./install.sh`.
 * Run `tce-load -w -i nano` to install nano.
 * Open `/etc/sysconfig/tcedir/onboot.lst` and add the lines `python-spidev.tcz`, `python-nrf24.tcz`, `python-requests.tcz`, and `python-influxdb.tcz` at the bottom of the file.
-* Open `/opt/bootlocal.sh` and add the line `/usr/local/bin/ntpd`
+* Open `/opt/bootlocal.sh` and add the line `/usr/local/bin/ntpd -g`
 * Run `sudo filetool.sh -b`to save the changes.
 * Done! You can reboot if you wish to make sure that everything loads as it should.
 
