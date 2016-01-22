@@ -3,6 +3,7 @@ Copyright (c) 2014 A.T.Brask <atbrask@gmail.com> (Except included libraries)
 All rights reserved
 
 Version history:
+* v1.3 (2016-01-22) Added support for 433MHz sensors. Lots of refactoring.
 * v1.2 (2015-11-11) Fixed compatibility issues
 * v1.1 (2015-02-25) Added support for the Bosch BMP085/180 barometric sensor
 * v1.0 (2014-10-26) Initial release
@@ -18,6 +19,12 @@ the Pi's I2C pins. These measurements are sent to the InfluxDB server just as
 the ones from the sensor nodes. Just comment out the relevant lines if you
 don't have this sensor installed.
 
+Finally, I have also added support for a few commonly available wireless
+433MHz weather station thermometers. This requires a little radio receiver
+circuit to be added to the Pi and connected to its on-board UART pins. It
+is based around a SYN470 receiver IC and an ATtiny84 MCU. Just comment out
+the relevant lines if you don't have this receiver installed.
+
 Installing and configuring InfluxDB is pretty easy, so I'll skip it in this
 write-up. Let's then focus on the gateway itself. It's merely a python script
 running on a Raspberry Pi with a highly specialized version of Tiny Core Linux
@@ -27,7 +34,8 @@ called piCore.
 * Raspberry Pi Model B
 * SD card
 * nRF24L01(+) radio module connected to the SPI bus (see below)
-* BMP085/180 barometric sensor connected to the I2C bus (see below)
+* Optional: BMP085/180 barometric sensor connected to the I2C bus (see below)
+* Optional: A 433MHz receiver and a bunch of compatible sensors (see below)
 * A bunch of "atbrask's Sensor Nodes"
 * A running [InfluxDB](http://influxdb.com) server
 * A [disk image of piCore 6.1-SSH](http://tinycorelinux.net/6.x/armv6/releases/images/piCore-6.1-SSH.zip) (+ basic knowledge about how to use it)
@@ -69,6 +77,15 @@ RPi pin | GY-68 pin
 If you have a breakout board without the 3.3v regulator, you'll need to use
 pin 1 instead of pin 2 for VCC.
 
+#### Connecting a 433MHz receiver to the Pi
+I have created a small 433MHz receiver for commonly available weather station
+temperature sensors. It is based on a SYN470 receiver IC and an ATtiny84 that 
+collects the radio data and forwards it to the Pi. Look elsewhere in this
+repository for a schematic and some firmware. The receiver uses the RX pin of
+the Pi's on-board UART, so you'll need to disable the serial console that
+PiCore exposes on these pins. When this is done, the receiver streams data
+to /dev/ttyAMA0 whenever it receives some.
+
 #### Installation
 * Install piCore 6.1-SSH onto an SD card using `dd` or similar tool.
 * Plug in the SD card and boot the Pi.
@@ -86,18 +103,28 @@ pin 1 instead of pin 2 for VCC.
 * Run `sudo filetool.sh -b`to save the changes.
 * Done! You can reboot if you wish to make sure that everything loads as it should.
 
+If you want to use the 433MHz receiver feature, you'll need a couple of extra steps to free up the on-board UART pins:
+
+* Run `sudo mount /dev/mmcblk0p1`
+* Open `/mnt/mmcblk0p1/cmdline.txt` and remove all references `/dev/ttyAMA0`. In my case, I removed `console=ttyAMA0,115200`
+* Run `sudo umount /dev/mmcblk0p1`
+* Open `/opt/bootlocal.sh`
+* Remove or comment out the line `/usr/sbin/startserialtty &`
+* Run `sudo filetool.sh -b`to save the changes.
+* Reboot
+
 #### Configuration
 Now everything is installed and put into the right places. But before running 
 the backend, it needs to be configured. 
 
-* Open `/opt/rpiweather.py` and make the necessary changes. It's a regular python script with some configuration settings. You'll need to put in details about the sensor nodes, how the nRF radio is connected to the Pi, and login details for the InfluxDB server.
+* Open `/opt/RPIWeather/rpiweather.py` and make the necessary changes. It's a regular python script with some configuration settings. You'll need to put in details about the sensor nodes, how the nRF radio is connected to the Pi, and login details for the InfluxDB server.
 * Save your changes.
 * Each time you change a setting, run `sudo filetool.sh -b` to persist the changes
 
 #### Running the damn thing
 To run the script from the command line write:
 
-    sudo /opt/rpiweather.py
+    sudo /opt/RPIWeather/rpiweather.py
 
 
 We need to use `sudo` in order to access the GPIO pins that are connected to
@@ -108,14 +135,14 @@ see if everything works as expected. But running the gateway from the command
 line is impractical for the long run. We need to add it to piCore's list of 
 services to be started at boot.
 
-* Open `/opt/bootlocal.sh` and add the line `sudo /opt/rpiweather.py &`
+* Open `/opt/bootlocal.sh` and add the line `sudo /opt/RPIWeather/rpiweather.py &`
 * Run `sudo filetool.sh -b` to save the changes.
 * Reboot to test that it auto-starts
 
 Now the server should be running and ready for use!
 
 #### File locations
-* Code file: `/opt/rpiweather.py`
+* Code entry point: `/opt/RPIWeather/rpiweather.py`
 * Log file: `/var/log/rpiweather.log`
 
 That is all! Have fun hacking!

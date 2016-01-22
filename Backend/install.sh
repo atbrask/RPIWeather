@@ -27,13 +27,19 @@ tce-load -w -i py-smbus
 git clone https://www.github.com/adafruit/Adafruit_Python_BMP.git
 git clone https://www.github.com/adafruit/Adafruit_Python_GPIO.git
 
+# Create destination folder for script files
+mkdir /opt/RPIWeather
+
 # Copy BMP085/180 files
-cp -r Adafruit_Python_BMP/Adafruit_BMP /opt/
-cp -r Adafruit_Python_GPIO/Adafruit_GPIO /opt/
+cp -r Adafruit_Python_BMP/Adafruit_BMP /opt/RPIWeather/
+cp -r Adafruit_Python_GPIO/Adafruit_GPIO /opt/RPIWeather/
+
+# Install dependency for 433 MHz receiver
+tce-load -w -i pyserial.tcz
 
 # Install script
-cp rpiweather.py /opt/
-chmod +x /opt/rpiweather.py
+cp *.py /opt/RPIWeather/
+chmod +x /opt/RPIWeather/rpiweather.py
 
 # Clean up a bit
 rm -rf python-requests-tcz
