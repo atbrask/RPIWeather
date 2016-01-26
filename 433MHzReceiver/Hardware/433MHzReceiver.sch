@@ -1,0 +1,356 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:433MHzReceiver-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text Notes 7350 7500 0    60   ~ 0
+433MHz receiver for RPIWeather base station
+$Comp
+L ATTINY84-P IC?
+U 1 1 56A7D06B
+P 4700 3250
+F 0 "IC?" H 3850 4000 50  0000 C CNN
+F 1 "ATTINY84-P" H 5400 2500 50  0000 C CNN
+F 2 "DIP14" H 4700 3050 50  0000 C CIN
+F 3 "" H 4700 3250 50  0000 C CNN
+	1    4700 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_02X03 P?
+U 1 1 56A7D0CB
+P 6550 3250
+F 0 "P?" H 6550 3450 50  0000 C CNN
+F 1 "ICSP" H 6550 3050 50  0000 C CNN
+F 2 "" H 6550 2050 50  0000 C CNN
+F 3 "" H 6550 2050 50  0000 C CNN
+	1    6550 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 56A7D7EF
+P 3450 3250
+F 0 "C?" H 3475 3350 50  0000 L CNN
+F 1 "100n" H 3475 3150 50  0000 L CNN
+F 2 "" H 3488 3100 50  0000 C CNN
+F 3 "" H 3450 3250 50  0000 C CNN
+	1    3450 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L VCC #PWR?
+U 1 1 56A7D82F
+P 3450 2550
+F 0 "#PWR?" H 3450 2400 50  0001 C CNN
+F 1 "VCC" H 3450 2700 50  0000 C CNN
+F 2 "" H 3450 2550 50  0000 C CNN
+F 3 "" H 3450 2550 50  0000 C CNN
+	1    3450 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 56A7D849
+P 3450 3950
+F 0 "#PWR?" H 3450 3700 50  0001 C CNN
+F 1 "GND" H 3450 3800 50  0000 C CNN
+F 2 "" H 3450 3950 50  0000 C CNN
+F 3 "" H 3450 3950 50  0000 C CNN
+	1    3450 3950
+	1    0    0    -1  
+$EndComp
+NoConn ~ 5750 3550
+NoConn ~ 5750 3650
+NoConn ~ 5750 3350
+NoConn ~ 5750 2950
+NoConn ~ 5750 2750
+NoConn ~ 5750 2650
+$Comp
+L VCC #PWR?
+U 1 1 56A7D922
+P 6850 3100
+F 0 "#PWR?" H 6850 2950 50  0001 C CNN
+F 1 "VCC" H 6850 3250 50  0000 C CNN
+F 2 "" H 6850 3100 50  0000 C CNN
+F 3 "" H 6850 3100 50  0000 C CNN
+	1    6850 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 56A7D93C
+P 6850 3400
+F 0 "#PWR?" H 6850 3150 50  0001 C CNN
+F 1 "GND" H 6850 3250 50  0000 C CNN
+F 2 "" H 6850 3400 50  0000 C CNN
+F 3 "" H 6850 3400 50  0000 C CNN
+	1    6850 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3650 3850 3450 3850
+Wire Wire Line
+	3450 3400 3450 3950
+Wire Wire Line
+	3650 2650 3450 2650
+Wire Wire Line
+	3450 2550 3450 3100
+Connection ~ 3450 2650
+Connection ~ 3450 3850
+Wire Wire Line
+	5750 3150 6300 3150
+Wire Wire Line
+	5750 3050 6250 3050
+Wire Wire Line
+	6250 3050 6250 3250
+Wire Wire Line
+	6250 3250 6300 3250
+Wire Wire Line
+	5750 3250 6150 3250
+$Comp
+L R R?
+U 1 1 56A7DA30
+P 7350 3000
+F 0 "R?" V 7430 3000 50  0000 C CNN
+F 1 "10k" V 7350 3000 50  0000 C CNN
+F 2 "" V 7280 3000 50  0000 C CNN
+F 3 "" H 7350 3000 50  0000 C CNN
+	1    7350 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 56A7DA4D
+P 7350 3400
+F 0 "C?" H 7375 3500 50  0000 L CNN
+F 1 "100n" H 7375 3300 50  0000 L CNN
+F 2 "" H 7388 3250 50  0000 C CNN
+F 3 "" H 7350 3400 50  0000 C CNN
+	1    7350 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L VCC #PWR?
+U 1 1 56A7DA7E
+P 7350 2750
+F 0 "#PWR?" H 7350 2600 50  0001 C CNN
+F 1 "VCC" H 7350 2900 50  0000 C CNN
+F 2 "" H 7350 2750 50  0000 C CNN
+F 3 "" H 7350 2750 50  0000 C CNN
+	1    7350 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 56A7DA9C
+P 7350 3650
+F 0 "#PWR?" H 7350 3400 50  0001 C CNN
+F 1 "GND" H 7350 3500 50  0000 C CNN
+F 2 "" H 7350 3650 50  0000 C CNN
+F 3 "" H 7350 3650 50  0000 C CNN
+	1    7350 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7350 3650 7350 3550
+Wire Wire Line
+	7350 3150 7350 3250
+Wire Wire Line
+	7350 2850 7350 2750
+$Comp
+L CONN_01X04 P?
+U 1 1 56A7DBF2
+P 6600 2300
+F 0 "P?" H 6600 2550 50  0000 C CNN
+F 1 "RXB12 Receiver" V 6700 2300 50  0000 C CNN
+F 2 "" H 6600 2300 50  0000 C CNN
+F 3 "" H 6600 2300 50  0000 C CNN
+	1    6600 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6150 3250 6150 2850
+Wire Wire Line
+	6150 2850 7000 2850
+Wire Wire Line
+	7000 2850 7000 3250
+Wire Wire Line
+	7000 3250 6800 3250
+Wire Wire Line
+	5750 3850 5900 3850
+Wire Wire Line
+	5900 3650 5900 4350
+Wire Wire Line
+	5750 3750 7000 3750
+Wire Wire Line
+	6400 2250 6300 2250
+Wire Wire Line
+	6300 2250 6300 2350
+Wire Wire Line
+	6050 2350 6400 2350
+Wire Wire Line
+	6050 2350 6050 2850
+Wire Wire Line
+	6050 2850 5750 2850
+Connection ~ 6300 2350
+$Comp
+L VCC #PWR?
+U 1 1 56A7E1BA
+P 6350 2100
+F 0 "#PWR?" H 6350 1950 50  0001 C CNN
+F 1 "VCC" H 6350 2250 50  0000 C CNN
+F 2 "" H 6350 2100 50  0000 C CNN
+F 3 "" H 6350 2100 50  0000 C CNN
+	1    6350 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L VCC #PWR?
+U 1 1 56A7E1E1
+P 6250 4000
+F 0 "#PWR?" H 6250 3850 50  0001 C CNN
+F 1 "VCC" H 6250 4150 50  0000 C CNN
+F 2 "" H 6250 4000 50  0000 C CNN
+F 3 "" H 6250 4000 50  0000 C CNN
+	1    6250 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6350 2100 6350 2150
+Wire Wire Line
+	6350 2150 6400 2150
+$Comp
+L GND #PWR?
+U 1 1 56A7E2A5
+P 6350 2500
+F 0 "#PWR?" H 6350 2250 50  0001 C CNN
+F 1 "GND" H 6350 2350 50  0000 C CNN
+F 2 "" H 6350 2500 50  0000 C CNN
+F 3 "" H 6350 2500 50  0000 C CNN
+	1    6350 2500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6350 2500 6350 2450
+Wire Wire Line
+	6350 2450 6400 2450
+$Comp
+L GND #PWR?
+U 1 1 56A7E2F9
+P 6900 4250
+F 0 "#PWR?" H 6900 4000 50  0001 C CNN
+F 1 "GND" H 6900 4100 50  0000 C CNN
+F 2 "" H 6900 4250 50  0000 C CNN
+F 3 "" H 6900 4250 50  0000 C CNN
+	1    6900 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6800 3350 6850 3350
+Wire Wire Line
+	6850 3350 6850 3400
+Wire Wire Line
+	6800 3150 6850 3150
+Wire Wire Line
+	6850 3150 6850 3100
+Wire Wire Line
+	7350 3200 7100 3200
+Wire Wire Line
+	7100 3200 7100 3650
+Wire Wire Line
+	7100 3650 5900 3650
+Connection ~ 5900 3850
+Connection ~ 7350 3200
+Wire Wire Line
+	6300 3350 6150 3350
+Wire Wire Line
+	6150 3350 6150 3650
+Connection ~ 6150 3650
+$Comp
+L CONN_02X13 P?
+U 1 1 56A7E9CA
+P 6550 4650
+F 0 "P?" H 6550 5350 50  0000 C CNN
+F 1 "Raspberry Pi P1 GPIO header" V 6550 4650 50  0000 C CNN
+F 2 "" H 6550 3500 50  0000 C CNN
+F 3 "" H 6550 3500 50  0000 C CNN
+	1    6550 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6250 4000 6250 4050
+Wire Wire Line
+	6250 4050 6300 4050
+Wire Wire Line
+	6800 4250 6900 4250
+Wire Wire Line
+	7000 3750 7000 4450
+Wire Wire Line
+	7000 4450 6800 4450
+NoConn ~ 6800 4150
+NoConn ~ 6800 4050
+NoConn ~ 6300 4150
+NoConn ~ 6300 4250
+Wire Wire Line
+	5900 4350 6300 4350
+Text Notes 5900 4350 0    60   ~ 0
+Optional
+NoConn ~ 6300 4450
+NoConn ~ 6300 4550
+NoConn ~ 6300 4650
+NoConn ~ 6300 4750
+NoConn ~ 6300 4850
+NoConn ~ 6300 4950
+NoConn ~ 6300 5050
+NoConn ~ 6300 5150
+NoConn ~ 6300 5250
+NoConn ~ 6800 5250
+NoConn ~ 6800 5150
+NoConn ~ 6800 5050
+NoConn ~ 6800 4950
+NoConn ~ 6800 4850
+NoConn ~ 6800 4750
+NoConn ~ 6800 4650
+NoConn ~ 6800 4550
+$EndSCHEMATC
