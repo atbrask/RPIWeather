@@ -50,6 +50,8 @@ public:
      *
      * Sets up the pin change interrupt to listen for tips of the seesaw within
      * the rain gauge. The device is set up as being permanently powered.
+     *
+     * Sets up PA1 as power pin and PA2 as data pin for the sensor.
      */
     WS_2300_16(void);
 
@@ -64,9 +66,8 @@ public:
      * Performs a single reading from the sensor.
      *
      * @param buffer The buffer to be updated if the read is successful.
-     * @return Whether or not the reading succeeded.
      */
-    bool read(SensorReading buffer[]);
+    void read(SensorReading buffer[]);
 };
 
 #endif

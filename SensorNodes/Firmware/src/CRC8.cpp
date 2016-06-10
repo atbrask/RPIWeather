@@ -1,6 +1,6 @@
 /*
-Common base class for all sensor types
-Copyright (c) 2014 A.T.Brask <atbrask@gmail.com>
+Standard CRC8 calculation for AVR MCUs
+Copyright (c) 2016 A.T.Brask <atbrask@gmail.com>
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -16,33 +16,26 @@ this program; if not, write to the Free Software Foundation, Inc.,
 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-#ifndef SENSOR_H
-#define SENSOR_H
+#include "CRC8.h"
 
-#define POWERPIN PA1
-#define DATAPIN PA2
+uint8_t CRC8::polynomial;
+uint8_t CRC8::checksum;
 
-#include "SensorNodeTypes.h"
-
-/**
- * Common base interface for all sensor types.
- */
-class Sensor
+void CRC8::init(uint8_t polynomial, uint8_t initialValue)
 {
-public:
-    /**
-     * Initializes the sensor reading buffer.
-     *
-     * @param The buffer array to be initialized
-     */
-    virtual void initReadings(SensorReading buffer[]) { };
+	CRC8::polynomial = polynomial;
+	CRC8::checksum = initialValue;
+}
 
-    /**
-     * Performs a single reading from the sensor.
-     *
-     * @param buffer The buffer to be updated if the read is successful.
-     */
-    virtual void read(SensorReading buffer[]) { };
-};
-
-#endif
+uint8_t CRC8::update(uint8_t value)
+{
+	CRC8::checksum ^= value;
+	for (uint8_t i = 0; i < 8; i++)
+	{
+		if (CRC8::checksum & 0x80)
+			CRC8::checksum = (CRC8::checksum << 1) ^ CRC8::polynomial;
+		else
+			CRC8::checksum <<= 1;
+	}
+	return checksum;
+}

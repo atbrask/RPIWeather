@@ -23,6 +23,14 @@ volatile uint16_t WS_2300_16::tips;
 
 WS_2300_16::WS_2300_16() : Sensor()
 {
+    // Set power pin to output and power up
+    DDRA |= _BV(POWERPIN);
+    PORTA |= _BV(POWERPIN);
+
+    // Set data pin to input and pull down
+    DDRA &= ~_BV(DATAPIN);
+    PORTA &= ~_BV(DATAPIN);
+
     tips = 0;
     PCMSK0 |= (1<<PCINT2);   // pin change mask: listen to PA2 
     GIMSK |= (1<<PCIE0);     // enable PCINT interrupt 
@@ -40,9 +48,8 @@ void WS_2300_16::initReadings(SensorReading buffer[])
     buffer[0].Quality = QualityBadCommFailure;
 }
 
-bool WS_2300_16::read(SensorReading buffer[])
+void WS_2300_16::read(SensorReading buffer[])
 {
     buffer[0].Value = tips * 5; // Each tip is approx 1/2 mm
     buffer[0].Quality = QualityGoodNonSpecific;
-    return true;
 }

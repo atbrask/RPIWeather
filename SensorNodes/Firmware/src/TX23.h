@@ -31,14 +31,22 @@ this program; if not, write to the Free Software Foundation, Inc.,
  */
 class TX23: public PowerManagedSensor 
 {
+private:
+    /**
+     * Busy-waits for transitions on the data pin (PA2).
+     *
+     * @param desiredPinState The desired PA2 pin state to wait for.
+     * @param maxMicroseconds How long do we want to wait?
+     * @return True if the pin changed before the timeout. False otherwise.
+     */
+    bool waitWithTimeout(bool desiredPinState, uint16_t maxMicroseconds);
 protected:
     /**
      * Performs a single reading from the sensor.
      *
      * @param buffer The buffer to be updated if the read is successful.
-     * @return Whether or not the reading succeeded.
      */
-    bool readPowered(SensorReading buffer[]);
+    void readPowered(SensorReading buffer[]);
 public:
     /**
      * Initializes the sensor reading buffer.

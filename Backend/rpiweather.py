@@ -75,6 +75,8 @@ if __name__ == "__main__":
                "RF24-0109": "Sensor-0109",
                "RF24-010A": "Sensor-010A",
 
+               "RF24-FFFF": "Sensor-FFFF", # reserved for debugging
+
                "OS1-08-2":  "Sensor-0201",
                "TX3-10":    "Sensor-0202",
                "CHN-10":    "Sensor-0203",

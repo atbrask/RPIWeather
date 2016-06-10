@@ -11,7 +11,7 @@ make a couple of display units based on the ESP8266 wifi chip and some Nokia
 5110 LCDs. For more thorough analysis a webpage will be implemented too.
 
 In its current form, the project is work-in-progress. Status on the different
-parts as of 2014-12-30:
+parts as of 2016-05-20:
 
 * Node firmware: 100%
 * Node hardware: 100%
@@ -27,6 +27,7 @@ as well.
 ### Sensor node features
 * Firmware optimized for ATtiny84 @ 1 MHz (8MHz crystal with the CKDV8 fuse set)
 * Temperature and humidity measurement using a DHT22 sensor
+* Temperature and humidity measurement using a HTU21D sensor
 * Wind speed and wind direction measurement using a La Crosse TX23 anemometer
 * Rainfall measurement using a WS-2300-16 rain gauge
 * Wireless operation using the very popular nRF24L01+ 2.4 GHz radio chip

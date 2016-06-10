@@ -25,6 +25,7 @@ this program; if not, write to the Free Software Foundation, Inc.,
 #include "DHT22.h"
 #include "TX23.h"
 #include "WS_2300_16.h"
+#include "HTU21D.h"
 
 ////////////////////
 //                //
@@ -61,6 +62,9 @@ int main()
 	radio.openWritingPipe(TXPIPE);
 	radio.openReadingPipe(1, RXPIPE);
 	radio.setAutoAck(true);
+
+    // Wait for everything to settle before sending first packet
+    WDTSleep::sleep(8);
 
     // Loop forever...
     while (true)

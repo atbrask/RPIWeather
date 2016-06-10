@@ -30,7 +30,7 @@ void TX23::initReadings(SensorReading buffer[])
     buffer[1].Quality = QualityBadCommFailure;
 }
 
-bool TX23::readPowered(SensorReading buffer[])
+void TX23::readPowered(SensorReading buffer[])
 {
     // Set data pin as output and pull high. Wait for 100 ms.
     DDRA |= _BV(DATAPIN);
@@ -60,7 +60,7 @@ bool TX23::readPowered(SensorReading buffer[])
         if (buffer[1].Quality == QualityGoodNonSpecific)
             buffer[1].Quality = QualityBadLastKnownValue;
 
-        return false;
+        return;
     }
 
     // Read 41 bits (LSB first)
@@ -106,7 +106,6 @@ bool TX23::readPowered(SensorReading buffer[])
         buffer[0].Value = windSpeed;
         buffer[1].Quality = QualityGoodNonSpecific;
         buffer[1].Value = windDirection * 225;
-        return true;
     }
     else
     {
@@ -115,7 +114,17 @@ bool TX23::readPowered(SensorReading buffer[])
 
         if (buffer[1].Quality == QualityGoodNonSpecific)
             buffer[1].Quality = QualityBadLastKnownValue;
-        
-        return false;
     }
+}
+
+
+bool TX23::waitWithTimeout(bool desiredPinState, uint16_t maxMicroseconds)
+{
+    while ((bool)(PINA & _BV(DATAPIN)) != desiredPinState)
+    {
+        _delay_us(1);
+        if (--maxMicroseconds == 0)
+            return false;
+    }
+    return true;
 }

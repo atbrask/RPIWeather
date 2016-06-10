@@ -30,7 +30,7 @@ void DHT22::initReadings(SensorReading buffer[])
     buffer[1].Quality = QualityBadCommFailure;
 }
 
-bool DHT22::readPowered(SensorReading buffer[])
+void DHT22::readPowered(SensorReading buffer[])
 {
     // Set data pin as output and pull high. Wait for 250 ms.
     DDRA |= _BV(DATAPIN);
@@ -95,8 +95,6 @@ bool DHT22::readPowered(SensorReading buffer[])
 
         buffer[1].Quality = QualityGoodNonSpecific;
         buffer[1].Value = humidity;
-        
-        return true;
     }
     else
     {
@@ -105,7 +103,5 @@ bool DHT22::readPowered(SensorReading buffer[])
 
         if (buffer[1].Quality == QualityGoodNonSpecific)
             buffer[1].Quality = QualityBadLastKnownValue;
-        
-        return false;
     }
 }

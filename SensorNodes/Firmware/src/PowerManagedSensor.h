@@ -43,9 +43,8 @@ protected:
      * Performs a single reading from the sensor after it has been powered up.
      *
      * @param buffer The buffer to be updated if the read is successful.
-     * @return Whether or not the reading succeeded.
      */
-    virtual bool readPowered(SensorReading buffer[]);
+    virtual void readPowered(SensorReading buffer[]) { }
 
 public:
     /**
@@ -55,14 +54,13 @@ public:
      * The sensor is initially not powered up.
      */
     PowerManagedSensor(void);
-    
+
     /**
      * Performs a single reading from the sensor including power management.
      *
      * @param buffer The buffer to be updated if the read is successful.
-     * @return Whether or not the reading succeeded.
      */
-    bool read(SensorReading buffer[]);
+    void read(SensorReading buffer[]);
 };
 
 #endif

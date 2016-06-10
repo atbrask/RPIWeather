@@ -34,9 +34,8 @@ protected:
      * Performs a single reading from the sensor.
      *
      * @param buffer The buffer to be updated if the read is successful.
-     * @return Whether or not the reading succeeded.
      */
-    bool readPowered(SensorReading buffer[]);
+    void readPowered(SensorReading buffer[]);
 public:
     /**
      * Initializes the sensor reading buffer.

@@ -28,7 +28,7 @@ OBJ2HEX=avr-objcopy
 # GLOBAL SETTINGS #
 ###################
 
-FIRMWAREVERSION=0x0104
+FIRMWAREVERSION=0x0105
 MAGICNUMBER=0x20130928
 TXPIPE=0x2013092801LL
 RXPIPE=0x2013092802LL
@@ -54,7 +54,7 @@ CFLAGS=-Os -fdata-sections -ffunction-sections -Wl,--gc-sections -Wall \
        -DTXPIPE=$(TXPIPE) -DRXPIPE=$(RXPIPE) -DCHANNEL=$(CHANNEL)
 SRC=src
 BIN=bin
-SOURCES=$(wildcard $(SRC)/*.cpp) $(wildcard $(SRC)/*/*.cpp)
+SOURCES=$(wildcard $(SRC)/*.cpp) $(wildcard $(SRC)/*/*.cpp) $(wildcard $(SRC)/*.S) $(wildcard $(SRC)/*/*.S)
 
 #################
 # BUILD TARGETS #

@@ -50,16 +50,10 @@ void PowerManagedSensor::powerDown(void)
     PORTA &= ~_BV(DATAPIN);
 }
 
-bool PowerManagedSensor::read(SensorReading buffer[])
+void PowerManagedSensor::read(SensorReading buffer[])
 {
     powerUp();
     WDTSleep::sleep(8);
-    bool result = readPowered(buffer);
+    readPowered(buffer);
     powerDown();
-    return result;
-}
-
-bool PowerManagedSensor::readPowered(SensorReading buffer[])
-{
-    return false;
 }
