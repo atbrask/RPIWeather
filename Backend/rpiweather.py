@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # RPIWeather Data Gateway
-# Copyright (c) 2014-2016 A.T.Brask <atbrask@gmail.com>
+# Copyright (c) 2014-2017 A.T.Brask <atbrask@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -21,10 +21,10 @@ import logging
 import logging.handlers
 import Queue
 
-import InfluxDBSender
-import OOK433MHzReceiver
-import BMPSampler
-import RF24Receiver
+from RPIWeather import InfluxDBSender
+from RPIWeather import OOK433MHzReceiver
+from RPIWeather import BMPSampler
+from RPIWeather import RF24Receiver
 
 if __name__ == "__main__":
 
@@ -45,9 +45,10 @@ if __name__ == "__main__":
     # Database settings
     host     = "192.168.1.251"
     port     = 8086
-    username = "root"
-    password = "root"
+    username = "gateway"
+    password = "thomas"
     database = "RPIWeather"
+    table    = "sensordata"
 
     # 433 MHz receiver settings
     serialPort = '/dev/ttyAMA0'
@@ -75,6 +76,7 @@ if __name__ == "__main__":
                "RF24-0109": "Sensor-0109",
                "RF24-010A": "Sensor-010A",
                "RF24-010B": "Sensor-010B",
+
                "RF24-FFFF": "Sensor-FFFF", # reserved for debugging
 
                "OS1-08-2":  "Sensor-0201",
@@ -94,7 +96,7 @@ if __name__ == "__main__":
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
-    logger.info("RPIWeather Data Gateway (c) 2014-2016 atbrask")
+    logger.info("RPIWeather Data Gateway (c) 2014-2017 atbrask")
 
     # Start data queue
     dataqueue = Queue.Queue()
@@ -105,7 +107,7 @@ if __name__ == "__main__":
     BMPSampler.BMPSampler(bmpSampleInterval, heightAboveSeaLevel, dataqueue, logger).start()
 
     # Start data sender
-    InfluxDBSender.InfluxDBSender(host, port, username, password, database, namemap, dataqueue, logger).start()
+    InfluxDBSender.InfluxDBSender(host, port, username, password, database, table, namemap, dataqueue, logger).start()
 
     # Wait forever
     logger.info("RPIWeather Data Gateway start-up completed!")

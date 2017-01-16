@@ -1,8 +1,9 @@
 ### Backend for "atbrask's Sensor Nodes v1.0"
-Copyright (c) 2014 A.T.Brask <atbrask@gmail.com> (Except included libraries)
+Copyright (c) 2014-2017 A.T.Brask <atbrask@gmail.com> (Except included libs)
 All rights reserved
 
 Version history:
+* v1.4 (2017-01-16) Upgraded to piCore 8.0 and InfluxDB >=1.0
 * v1.3 (2016-01-22) Added support for 433MHz sensors. Lots of refactoring.
 * v1.2 (2015-11-11) Fixed compatibility issues
 * v1.1 (2015-02-25) Added support for the Bosch BMP085/180 barometric sensor
@@ -38,7 +39,7 @@ called piCore.
 * Optional: A 433MHz receiver and a bunch of compatible sensors (see below)
 * A bunch of "atbrask's Sensor Nodes"
 * A running [InfluxDB](http://influxdb.com) server
-* A [disk image of piCore 6.1-SSH](http://tinycorelinux.net/6.x/armv6/releases/images/piCore-6.1-SSH.zip) (+ basic knowledge about how to use it)
+* A [disk image of piCore 8.0](http://tinycorelinux.net/8.x/armv6/releases/RPi/piCore-8.0.zip) (+ basic knowledge about how to use it)
 * Knowledge of the python programming language
 * An internet connection :-)
 
@@ -87,20 +88,20 @@ PiCore exposes on these pins. When this is done, the receiver streams data
 to /dev/ttyAMA0 whenever it receives some.
 
 #### Installation
-* Install piCore 6.1-SSH onto an SD card using `dd` or similar tool.
+* Install piCore 8.0 onto an SD card using `dd` or similar tool.
 * Plug in the SD card and boot the Pi.
 * Log in to the system using SSH (username `tc` and password `piCore`).
 * Change the password to something else using `passwd`.
-* Run `sudo filetool.sh -b` to save the newly generated SSH keys.
+* Run `filetool.sh -b` to save the newly generated SSH keys.
 * Expand the file system (and reboot). See [here](http://www.maketecheasier.com/review-of-picore/) for a how-to.
 * When the system is ready, log in again.
-* Run `tce-load -w -i git` to install git.
+* Refresh tcz packages by running `tce-update` followed by a reboot.
+* Run `tce-load -wi git` to install git.
 * Run `git clone https://www.github.com/atbrask/RPIWeather.git`
 * Type `cd RPIWeather/Backend` and run `./install.sh`.
-* Run `tce-load -w -i nano` to install nano.
-* Open `/etc/sysconfig/tcedir/onboot.lst` and add the lines `python-spidev.tcz`, `python-nrf24.tcz`, `python-requests.tcz`, and `python-influxdb.tcz` at the bottom of the file.
-* Open `/opt/bootlocal.sh` and add the line `/usr/local/bin/ntpd -g`
-* Run `sudo filetool.sh -b`to save the changes.
+* You can now safely remove the installer code by running `cd ~` followed by `rm -rf RPIWeather`.
+* Run `tce-load -wi nano` to install the nano text editor.
+* Configure the main RPIWeather script in `/opt/RPIWeather/rpiweather.py` (see details in next section).
 * Done! You can reboot if you wish to make sure that everything loads as it should.
 
 If you want to use the 433MHz receiver feature, you'll need a couple of extra steps to free up the on-board UART pins:

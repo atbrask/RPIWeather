@@ -1,5 +1,5 @@
 # RPIWeather Data Gateway
-# Copyright (c) 2014-2016 A.T.Brask <atbrask@gmail.com>
+# Copyright (c) 2014-2017 A.T.Brask <atbrask@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -18,11 +18,12 @@ import sys
 import threading
 import time
 
-from influxdb import client as influxdb
+from influxdb import InfluxDBClient
 
 class InfluxDBSender:
-    def __init__(self, host, port, username, password, database, namemap, dataqueue, logger):
-        self.db = influxdb.InfluxDBClient(host, port, username, password, database)
+    def __init__(self, host, port, username, password, database, table, namemap, dataqueue, logger):
+        self.db = InfluxDBClient(host, port, username, password, database)
+        self.table = table
         self.namemap = namemap # id -> name
         self.dataqueue = dataqueue
         self.logger = logger
@@ -70,11 +71,9 @@ class InfluxDBSender:
             return None
 
         # Format InfluxDB data packet
-        columns = []
-        points = []
+        fields = {}
         for key in packet:
-            if key is not 'id':
-                columns.append(key)
-                points.append(packet[key])
-
-        return [{"name": self.namemap[packet['id']], "columns": columns, "points": [points]}]
+            if key is not 'id' and key is not 'time':
+                fields[key] = packet[key]
+        timestamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(packet['time']))
+        return [{"measurement": self.table, "tags": {"source": self.namemap[packet['id']]}, "time": timestamp, "fields": fields}]

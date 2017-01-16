@@ -166,9 +166,9 @@ class OOK433MHzReceiver:
             raise Exception("OS1 error: Bad signal length! Got {0} nibbles but expected 8".format(len(data)))
     
         # Compare checksum
-        checksum = ((data[0] + data[2] + data[4])<<4) + data[1] + data[3] + data[5]
-        checksum = (checksum & 0xff) + (checksum >> 8)
-        providedChecksum = (data[6]<<4) | data[7]
+        checksum = ((data[1] + data[3] + data[5])<<4) + data[0] + data[2] + data[4]
+        checksum = checksum & 0xff
+        providedChecksum = (data[7]<<4) | data[6]
         if checksum != providedChecksum:
             raise Exception("OS1 error: Bad checksum! Got 0x{0:02X} but calculated 0x{1:02X}".format(providedChecksum, checksum))
     
