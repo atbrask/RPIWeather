@@ -234,7 +234,7 @@ class OOK433MHzReceiver:
         crcbytes = [(crcnibbles[i]<<4) | crcnibbles[i+1] for i in range(0, len(crcnibbles), 2)]
         CRC = self.calcCRC8(crcbytes, 0x07, 0x9a)
         providedCRC = (data[15]<<4) | data[14]
-        if checksum != providedChecksum:
+        if CRC != providedCRC:
             raise Exception("OS2 error: Bad CRC8! Got 0x{0:02X} but calculated 0x{1:02X}".format(providedCRC, CRC))
 
         # ID and channel
