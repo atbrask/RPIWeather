@@ -1,8 +1,9 @@
 ### Backend for "atbrask's Sensor Nodes v1.0"
-Copyright (c) 2014-2017 A.T.Brask <atbrask@gmail.com> (Except included libs)
+Copyright (c) 2014-2018 A.T.Brask <atbrask@gmail.com> (Except included libs)
 All rights reserved
 
 Version history:
+* v1.5 (2018-11-21) Upgraded to piCore 9.0.3 and enabled HTTPS support.
 * v1.4 (2017-01-16) Upgraded to piCore 8.0 and InfluxDB >=1.0
 * v1.3 (2016-01-22) Added support for 433MHz sensors. Lots of refactoring.
 * v1.2 (2015-11-11) Fixed compatibility issues
@@ -39,7 +40,7 @@ called piCore.
 * Optional: A 433MHz receiver and a bunch of compatible sensors (see below)
 * A bunch of "atbrask's Sensor Nodes"
 * A running [InfluxDB](http://influxdb.com) server
-* A [disk image of piCore 8.0](http://tinycorelinux.net/8.x/armv6/releases/RPi/piCore-8.0.zip) (+ basic knowledge about how to use it)
+* A [disk image of piCore 9.0.3](http://tinycorelinux.net/9.x/armv6/releases/RPi/piCore-9.0.3.zip) (+ basic knowledge about how to use it)
 * Knowledge of the python programming language
 * An internet connection :-)
 
@@ -88,7 +89,7 @@ PiCore exposes on these pins. When this is done, the receiver streams data
 to /dev/ttyAMA0 whenever it receives some.
 
 #### Installation
-* Install piCore 8.0 onto an SD card using `dd` or similar tool.
+* Install piCore 9.0.3 onto an SD card using `dd` or similar tool.
 * Plug in the SD card and boot the Pi.
 * Log in to the system using SSH (username `tc` and password `piCore`).
 * Change the password to something else using `passwd`.

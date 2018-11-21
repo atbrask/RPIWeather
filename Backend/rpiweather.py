@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # RPIWeather Data Gateway
-# Copyright (c) 2014-2017 A.T.Brask <atbrask@gmail.com>
+# Copyright (c) 2014-2018 A.T.Brask <atbrask@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -43,12 +43,14 @@ if __name__ == "__main__":
     magicnumber = 0x20130928
 
     # Database settings
-    host     = "192.168.1.251"
-    port     = 8086
-    username = "gateway"
-    password = "thomas"
-    database = "RPIWeather"
-    table    = "sensordata"
+    host       = "192.168.1.251"
+    port       = 8086
+    ssl        = False
+    verify_ssl = False
+    username   = "gateway"
+    password   = "thomas"
+    database   = "RPIWeather"
+    table      = "sensordata"
 
     # 433 MHz receiver settings
     serialPort = '/dev/ttyAMA0'
@@ -96,7 +98,7 @@ if __name__ == "__main__":
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
-    logger.info("RPIWeather Data Gateway (c) 2014-2017 atbrask")
+    logger.info("RPIWeather Data Gateway (c) 2014-2018 atbrask")
 
     # Start data queue
     dataqueue = Queue.Queue()
@@ -107,7 +109,7 @@ if __name__ == "__main__":
     BMPSampler.BMPSampler(bmpSampleInterval, heightAboveSeaLevel, dataqueue, logger).start()
 
     # Start data sender
-    InfluxDBSender.InfluxDBSender(host, port, username, password, database, table, namemap, dataqueue, logger).start()
+    InfluxDBSender.InfluxDBSender(host, port, ssl, verify_ssl, username, password, database, table, namemap, dataqueue, logger).start()
 
     # Wait forever
     logger.info("RPIWeather Data Gateway start-up completed!")

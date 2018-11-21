@@ -1,5 +1,5 @@
 # RPIWeather Data Gateway
-# Copyright (c) 2014-2017 A.T.Brask <atbrask@gmail.com>
+# Copyright (c) 2014-2018 A.T.Brask <atbrask@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -21,8 +21,8 @@ import time
 from influxdb import InfluxDBClient
 
 class InfluxDBSender:
-    def __init__(self, host, port, username, password, database, table, namemap, dataqueue, logger):
-        self.db = InfluxDBClient(host, port, username, password, database)
+    def __init__(self, host, port, ssl, verify_ssl, username, password, database, table, namemap, dataqueue, logger):
+        self.db = InfluxDBClient(host, port, username, password, database, ssl, verify_ssl)
         self.table = table
         self.namemap = namemap # id -> name
         self.dataqueue = dataqueue
