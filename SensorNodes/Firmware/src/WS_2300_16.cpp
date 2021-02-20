@@ -52,4 +52,5 @@ void WS_2300_16::read(SensorReading buffer[])
 {
     buffer[0].Value = tips * 5; // Each tip is approx 1/2 mm
     buffer[0].Quality = QualityGoodNonSpecific;
+    tips = 0;
 }
